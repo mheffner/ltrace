@@ -82,6 +82,8 @@ usage(void) {
 		"  -D, --debug=LEVEL   enable debugging (see -Dh or --debug=help).\n"
 		"  -Dh, --debug=help   show help on debugging.\n"
 		"  -e expr             modify which events to trace.\n"
+		"  -E var=val          put var=val in the environment for cmd.\n"
+		"  -E var              remove var from the environment for cmd.\n"
 		"  -f                  trace children (fork() and clone()).\n"
 		"  -F, --config=FILE   load alternate configuration file (may be repeated).\n"
 		"  -h, --help          display this help and exit.\n"
@@ -204,7 +206,7 @@ process_options(int argc, char **argv) {
 # ifdef USE_DEMANGLE
 				"C"
 # endif
-				"a:A:D:e:F:l:n:o:p:s:u:x:X:", long_options,
+				"a:A:D:e:E:F:l:n:o:p:s:u:x:X:", long_options,
 				&option_index);
 		if (c == -1) {
 			break;
@@ -268,6 +270,13 @@ process_options(int argc, char **argv) {
 				}
 				break;
 			}
+		case 'E':
+			if (putenv(optarg) < 0) {
+				fprintf(stderr, "%s: Out of memory\n",
+				    progname);
+				exit(1);
+			}
+			break;
 		case 'f':
 			options.follow = 1;
 			break;

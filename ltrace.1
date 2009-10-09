@@ -6,7 +6,7 @@ ltrace \- A library call tracer
 
 .SH SYNOPSIS
 .B ltrace
-.I "[-CfhiLrStttV] [-a column] [-A maxelts] [-D level] [-e expr] [-l filename] [-n nr] [-o filename] [-p pid] ... [-s strsize] [-u username] [-X extern] [-x extern] ... [--align=column] [--debug=level] [--demangle] [--help] [--indent=nr] [--library=filename] [--output=filename] [--version] [command [arg ...]]"
+.I "[-CfhiLrStttV] [-a column] [-A maxelts] [-D level] [-e expr] [-l filename] [-n nr] [-o filename] [-p pid] ... [-s strsize] [-u username] [-X extern] [-x extern] ... [--align=column] [--debug=level] [--demangle] [--help] [--indent=nr] [--library=filename] [--output=filename] [-Evar=val] [-Evar] [--version] [command [arg ...]]"
 
 .SH DESCRIPTION
 .B ltrace
@@ -75,6 +75,17 @@ means to trace every library call except printf.
 Note that some shells use the exclamation point for history
 expansion; even inside quoted arguments.  If so, you must escape
 the exclamation point with a backslash.
+.TP
+.I \-E var=val
+Run command with
+.I var=val
+in its list of environment variables.
+.TP
+.I \-E var
+Remove
+.I var
+from the inherited list of environment variables
+before passing them on to the command.
 .TP
 .I \-f
 Trace child processes as they are created by
